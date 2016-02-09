@@ -191,7 +191,7 @@ function possibleBonuses(mount) {
     var i;
     for (i = 1; i < insigniaBonuses.length; i += 1) {
         if (insigniaMountMatch(insigniaBonuses[i].slots, mount)) {
-            array.push(insigniaBonuses[i].itemName);
+            array.push('<a href="?' + i + '">' + insigniaBonuses[i].itemName + "</a>");
         }
     }
     return array.join(", ");
@@ -221,7 +221,7 @@ function update() {
             cell2 = row.insertCell(1);
             cell2.textContent = slotLetterstoNames(mounts[i].slots, ", ");
             cell3 = row.insertCell(2);
-            cell3.textContent = possibleBonuses(mounts[i].slots);
+            cell3.innerHTML = possibleBonuses(mounts[i].slots);
         }
     }
     history.replaceState(null, null, "?" + selected);
