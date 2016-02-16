@@ -191,7 +191,7 @@ function possibleBonuses(mount) {
     var i;
     for (i = 1; i < insigniaBonuses.length; i += 1) {
         if (insigniaMountMatch(insigniaBonuses[i].slots, mount)) {
-            array.push('<a href="?' + i + '">' + insigniaBonuses[i].itemName + "</a>");
+            array.push('<a href="?' + i + '" title="' + insigniaBonuses[i].description + '">' + insigniaBonuses[i].itemName + "</a>");
         }
     }
     return array.join(", ");
