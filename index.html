@@ -10,6 +10,13 @@ td.epic {border: medium ridge #7a38ff;}
 td.rare {border: medium ridge #3391e9;}
 td.uncommon {border: medium ridge #84dc26;}
 td.common {border: medium ridge #ffffff;}
+a:link, a:visited, a:visited {color: #1a0dab; text-decoration: none;}
+a:hover {text-decoration: underline;}
+#select {margin-left: 2px; width: 208px;}
+#description {margin-left: 2px; margin-top: 2px;}
+#table1 td:nth-child(1) {border: medium ridge #f3f3f3; width: 200px;}
+th:nth-child(1), td:nth-child(1) {width: 200px;}
+th:nth-child(2), td:nth-child(2) {width: 250px;}
 </style>
 </head>
 <body>
@@ -36,8 +43,8 @@ td.common {border: medium ridge #ffffff;}
 var insigniaTypes = {A: "Crescent", B: "Regal", C: "Barbed", D: "Illuminated", E: "Enlightened", U: "Universal"};
 
 var insigniaBonuses = [
-    {itemName: "bonuses", slots: "", description: ""},
-    {itemName: "mounts", slots: "", description: ""},
+    {itemName: "All available mount bonuses", slots: "", description: ""},
+    {itemName: "All available mounts", slots: "", description: ""},
     {itemName: "Vampire's Craving", slots: "AAB", description: "Whenever you perform a Lifesteal, you are healed for 3% of your maximum Hit Points over 4 seconds."},
     {itemName: "Survivor's Blessing", slots: "AAC", description: "Whenever you Deflect an attack, you are healed for 3% of your maximum Hit Points over 4 seconds."},
     {itemName: "Oppressor's Reprieve", slots: "ADD", description: "Whenever you are Stunned, Knocked, or Immobilized, you are healed for 4% of your maximum Hit Points over 4 seconds."},
