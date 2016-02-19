@@ -17,7 +17,14 @@ td.common {border: medium ridge #ffffff;}
 <span id="slots"></span>
 <div id="description"></div>
 <br>
-<table id="table">
+<table id="table1">
+  <tr>
+    <th>Bonus</th>
+    <th>Insignia Required</th>
+    <th>Description</th>
+  </tr>
+</table>
+<table id="table2">
   <tr>
     <th>Mount</th>
     <th>Insignia Slots</th>
@@ -29,7 +36,8 @@ td.common {border: medium ridge #ffffff;}
 var insigniaTypes = {A: "Crescent", B: "Regal", C: "Barbed", D: "Illuminated", E: "Enlightened", U: "Universal"};
 
 var insigniaBonuses = [
-    {itemName: "no bonus", slots: "", description: "This is a dummy entry to list all the mounts."},
+    {itemName: "bonuses", slots: "", description: ""},
+    {itemName: "mounts", slots: "", description: ""},
     {itemName: "Vampire's Craving", slots: "AAB", description: "Whenever you perform a Lifesteal, you are healed for 3% of your maximum Hit Points over 4 seconds."},
     {itemName: "Survivor's Blessing", slots: "AAC", description: "Whenever you Deflect an attack, you are healed for 3% of your maximum Hit Points over 4 seconds."},
     {itemName: "Oppressor's Reprieve", slots: "ADD", description: "Whenever you are Stunned, Knocked, or Immobilized, you are healed for 4% of your maximum Hit Points over 4 seconds."},
@@ -189,7 +197,7 @@ function possibleBonuses(mount) {
     "use strict";
     var array = [];
     var i;
-    for (i = 1; i < insigniaBonuses.length; i += 1) {
+    for (i = 2; i < insigniaBonuses.length; i += 1) {
         if (insigniaMountMatch(insigniaBonuses[i].slots, mount)) {
             array.push('<a href="?' + i + '" title="' + insigniaBonuses[i].description + '">' + insigniaBonuses[i].itemName + "</a>");
         }
@@ -203,25 +211,30 @@ function update() {
     var slots = insigniaBonuses[selected].slots;
     document.getElementById("slots").textContent = slotLetterstoNames(slots, " + ");
     document.getElementById("description").textContent = insigniaBonuses[selected].description;
-    var table = document.getElementById("table");
-    while (table.rows.length > 1) {
-        table.deleteRow(1);
-    }
-    var i;
-    var row;
-    var cell1;
-    var cell2;
-    var cell3;
-    for (i = 0; i < mounts.length; i += 1) {
-        if (insigniaMountMatch(slots, mounts[i].slots)) {
-            row = table.insertRow(table.rows.length);
-            cell1 = row.insertCell(0);
-            cell1.textContent = mounts[i].itemName;
-            cell1.className = mounts[i].quality;
-            cell2 = row.insertCell(1);
-            cell2.textContent = slotLetterstoNames(mounts[i].slots, ", ");
-            cell3 = row.insertCell(2);
-            cell3.innerHTML = possibleBonuses(mounts[i].slots);
+    if (selected === 0) {
+        document.getElementById("table1").removeAttribute("style");
+        document.getElementById("table2").style.display = "none";
+    } else {
+        document.getElementById("table1").style.display = "none";
+        var table = document.getElementById("table2");
+        table.removeAttribute("style");
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+        var i;
+        var row;
+        var cell;
+        for (i = 0; i < mounts.length; i += 1) {
+            if (insigniaMountMatch(slots, mounts[i].slots)) {
+                row = table.insertRow(table.rows.length);
+                cell = row.insertCell(0);
+                cell.textContent = mounts[i].itemName;
+                cell.className = mounts[i].quality;
+                cell = row.insertCell(1);
+                cell.textContent = slotLetterstoNames(mounts[i].slots, ", ");
+                cell = row.insertCell(2);
+                cell.innerHTML = possibleBonuses(mounts[i].slots);
+            }
         }
     }
     history.replaceState(null, null, "?" + selected);
@@ -230,6 +243,18 @@ function update() {
 function initialize() {
     "use strict";
     var i;
+    var table = document.getElementById("table1");
+    var row;
+    var cell;
+    for (i = 2; i < insigniaBonuses.length; i += 1) {
+        row = table.insertRow(table.rows.length);
+        cell = row.insertCell(0);
+        cell.innerHTML = '<a href="?' + i + '">' + insigniaBonuses[i].itemName + "</a>";
+        cell = row.insertCell(1);
+        cell.textContent = slotLetterstoNames(insigniaBonuses[i].slots, " + ");
+        cell = row.insertCell(2);
+        cell.textContent = insigniaBonuses[i].description;
+    }
     var option;
     var select = document.getElementById("select");
     for (i = 0; i < insigniaBonuses.length; i += 1) {
@@ -242,7 +267,7 @@ function initialize() {
     if (query >= 0 && query < insigniaBonuses.length) {
         select.selectedIndex = query;
     } else {
-        select.selectedIndex = Math.random() * insigniaBonuses.length;
+        select.selectedIndex = 0;
     }
     update();
 }
