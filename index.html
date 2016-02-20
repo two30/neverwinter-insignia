@@ -195,13 +195,17 @@ function insigniaMountMatch(insignia, mount) {
     return mount === "" || mount === "U" || mount === "UU";
 }
 
-function possibleBonuses(mount) {
+function possibleBonuses(mount, selected) {
     "use strict";
     var array = [];
     var i;
     for (i = 2; i < insigniaBonuses.length; i += 1) {
         if (insigniaMountMatch(insigniaBonuses[i].slots, mount)) {
-            array.push('<a href="?' + i + '" title="' + insigniaBonuses[i].description + '">' + insigniaBonuses[i].itemName + "</a>");
+            if (i === selected) {
+                array.push(insigniaBonuses[i].itemName);
+            } else {
+                array.push('<a href="?' + i + '" title="' + insigniaBonuses[i].description + '">' + insigniaBonuses[i].itemName + "</a>");
+            }
         }
     }
     return array.join(", ");
@@ -236,7 +240,7 @@ function update() {
                 cell.textContent = slotLetterstoNames(mounts[i].slots, ", ");
                 cell.className = "nowrap";
                 cell = row.insertCell(2);
-                cell.innerHTML = possibleBonuses(mounts[i].slots);
+                cell.innerHTML = possibleBonuses(mounts[i].slots, selected);
             }
         }
     }
