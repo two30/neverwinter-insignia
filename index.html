@@ -5,6 +5,7 @@
 <title>Neverwinter Mount Insignia Bonuses</title>
 <style>
 td {border: thin dotted black;}
+td.nowrap {white-space: nowrap;}
 td.legendary {border: medium ridge #f27900;}
 td.epic {border: medium ridge #7a38ff;}
 td.rare {border: medium ridge #3391e9;}
@@ -48,9 +49,9 @@ var insigniaBonuses = [
     {itemName: "Artificer's Persuasion", slots: "CCD", description: "Whenever you use an Artifact power, your Recovery, Movement, Action Point Gain, and Stamina Gain are increased by 10% of your Power for 15 seconds."},
     {itemName: "Magistrate's Patience", slots: "CCE", description: "Whenever you perform a Critical Strike, your target will gain a stack of Magistrate's Consideration. Enemies affected by Magistrate's Consideration take Psychic Damage equal to 10% of your Power over 4 seconds. Allies affected by Magistrate's Consideration are healed for 3% of your maximum Hit Points over 4 seconds."},
     {itemName: "Champion's Return", slots: "DEE", description: "Whenever you are reduced to 50% Hit Points, you instantly recover 20% of your Stamina and are healed for 20% of you maximum Hit Points over 10 seconds. This effect can only occur once every 60 seconds."},
-    {itemName: "Barbecued Meat", slots: "ABC", description: "FIXME"},
     {itemName: "Wanderer's Fortune", slots: "ABD", description: "You have a 4% chance after killing a foe to find a Refining Stone at your feet."},
     {itemName: "Cavalry's Warning", slots: "ACE", description: "Whenever you activate a Mount Combat Power, you gain an increase of 10% to your Power, Recovery, Armor Penetration, Critical Strike, Defense, Deflection, Regeneration, and Life Steal."},
+    {itemName: "Shepherd's Devotion", slots: "BCD", description: "Whenever you use a Daily power, your teammates Defense, Deflection, and Movement are increased by 5% of your Power for 15 seconds."},
     {itemName: "Gladiator's Guile", slots: "BDE", description: "When your Stamina is above 75%, you move 15% faster. When your Stamina is below 25%, gain 15% of your Power as Stamina Gain."},
     {itemName: "Vampire's Thirst", slots: "AB", description: "Whenever you perform a Lifesteal, you are healed for 1.2% of your maximum Hit Points over 4 seconds."},
     {itemName: "Survivor's Gift", slots: "AC", description: "Whenever you Deflect an attack, you are healed for 1.2% of your maximum Hit Points over 4 seconds."},
@@ -65,7 +66,7 @@ var insigniaBonuses = [
 ];
 
 var mounts = [
-    {itemName: "Armored Axe Beak", slots: "CUU", quality: "legendary"},
+    {itemName: "Armored Axe Beak", slots: "AUU", quality: "legendary"},
     {itemName: "Armored Bulette", slots: "AUU", quality: "legendary"},
     {itemName: "Armored Giant Strider", slots: "DUU", quality: "legendary"},
     {itemName: "Beholder Miniature Tank", slots: "FIXME", quality: "legendary"},
@@ -91,7 +92,7 @@ var mounts = [
     {itemName: "Gas Spore", slots: "DEU", quality: "epic"},
     {itemName: "Giant Beetle", slots: "BBU", quality: "epic"},
     {itemName: "Giant Crab", slots: "BCU", quality: "epic"},
-    {itemName: "Giant Strider (Legacy)", slots: "BDU", quality: "epic"},
+    {itemName: "Giant Strider (Legacy)", slots: "DDU", quality: "epic"},
     {itemName: "Gorgon", slots: "BEU", quality: "epic"},
     {itemName: "Guard Drake", slots: "BCU", quality: "epic"},
     {itemName: "Heavy Giant Spider", slots: "BDU", quality: "epic"},
@@ -117,14 +118,14 @@ var mounts = [
     {itemName: "White Tiger", slots: "BCU", quality: "epic"},
     {itemName: "Yeth Hound", slots: "ACU", quality: "epic"},
     {itemName: "Armored Ghost Horse", slots: "AAC", quality: "rare"},
-    {itemName: "Frozen Demon Sled", slots: "FIXME", quality: "rare"},
+    {itemName: "Frozen Demon Sled", slots: "AAB", quality: "rare"},
     {itemName: "Gelatinous Cube", slots: "BDD", quality: "rare"},
     {itemName: "Gilded Giant Spider", slots: "ABD", quality: "rare"},
     {itemName: "Golden Brindle Horse", slots: "BBE", quality: "rare"},
     {itemName: "Hell Hound", slots: "AAB", quality: "rare"},
     {itemName: "Medium Black Horse", slots: "BBC", quality: "rare"},
     {itemName: "Medium Palomino Horse", slots: "FIXME", quality: "rare"},
-    {itemName: "Medium Pharaoh Steed", slots: "ABC", quality: "rare"},
+    {itemName: "Medium Pharaoh Steed", slots: "AAC", quality: "rare"},
     {itemName: "Medium Snowswift Horse", slots: "ADD", quality: "rare"},
     {itemName: "Medium Tiger", slots: "CCE", quality: "rare"},
     {itemName: "Medium Waterdeep Horse", slots: "CCD", quality: "rare"},
@@ -144,7 +145,7 @@ var mounts = [
     {itemName: "Calimshan Horse", slots: "CU", quality: "uncommon"},
     {itemName: "Crag Cat", slots: "FIXME", quality: "uncommon"},
     {itemName: "Dappled Riding Horse", slots: "DU", quality: "uncommon"},
-    {itemName: "Demon Sled", slots: "FIXME", quality: "uncommon"},
+    {itemName: "Demon Sled", slots: "AU", quality: "uncommon"},
     {itemName: "Fey Wolf", slots: "FIXME", quality: "uncommon"},
     {itemName: "Inferno Nightmare", slots: "DU", quality: "uncommon"},
     {itemName: "Jubilee Parade Horse", slots: "BU", quality: "uncommon"},
@@ -229,9 +230,10 @@ function update() {
                 row = table.insertRow(table.rows.length);
                 cell = row.insertCell(0);
                 cell.textContent = mounts[i].itemName;
-                cell.className = mounts[i].quality;
+                cell.className = "nowrap " + mounts[i].quality;
                 cell = row.insertCell(1);
                 cell.textContent = slotLetterstoNames(mounts[i].slots, ", ");
+                cell.className = "nowrap";
                 cell = row.insertCell(2);
                 cell.innerHTML = possibleBonuses(mounts[i].slots);
             }
@@ -250,8 +252,10 @@ function initialize() {
         row = table.insertRow(table.rows.length);
         cell = row.insertCell(0);
         cell.innerHTML = '<a href="?' + i + '">' + insigniaBonuses[i].itemName + "</a>";
+        cell.className = "nowrap";
         cell = row.insertCell(1);
         cell.textContent = slotLetterstoNames(insigniaBonuses[i].slots, " + ");
+        cell.className = "nowrap";
         cell = row.insertCell(2);
         cell.textContent = insigniaBonuses[i].description;
     }
