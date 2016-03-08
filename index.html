@@ -183,14 +183,23 @@ var mounts = [
     {itemName: "Waterdeep Horse", slots: "DE", quality: "common"}
 ];
 
-function slotLetterstoNames(slots) {
+function wordySlots(slots) {
     "use strict";
     var i;
-    var string = slots.split("");
+    var count = {};
     for (i = 0; i < slots.length; i += 1) {
-        string[i] = insignia[string[i]];
+        if (count[slots[i]]) {
+            count[slots[i]] += 1;
+        } else {
+            count[slots[i]] = 1;
+        }
     }
-    return string.join(" + ");
+    var keys = Object.keys(count);
+    var array = [];
+    for (i = 0; i < keys.length; i += 1) {
+        array.push(count[keys[i]] + " " + insignia[keys[i]]);
+    }
+    return array.join(", ");
 }
 
 function bonusMountMatch(bSlots, mSlots) {
@@ -237,7 +246,7 @@ function update() {
     "use strict";
     var selected = document.getElementById("select").selectedIndex;
     var bSlots = bonuses[selected].slots;
-    document.getElementById("slots").textContent = slotLetterstoNames(bSlots);
+    document.getElementById("slots").textContent = wordySlots(bSlots);
     document.getElementById("description").textContent = bonuses[selected].description;
     if (selected === 0) {
         document.getElementById("table1").removeAttribute("style");
@@ -298,7 +307,7 @@ function initialize() {
         cell.innerHTML = makeLink(bonuses[i].itemName, i);
         cell.className = "nowrap";
         cell = row.insertCell(1);
-        cell.textContent = slotLetterstoNames(bonuses[i].slots);
+        cell.textContent = wordySlots(bonuses[i].slots);
         cell.className = "nowrap";
         cell = row.insertCell(2);
         cell.textContent = bonuses[i].description;
