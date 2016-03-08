@@ -11,6 +11,8 @@ td.epic {border: medium ridge #7a38ff;}
 td.rare {border: medium ridge #3391e9;}
 td.uncommon {border: medium ridge #84dc26;}
 td.common {border: medium ridge #ffffff;}
+td.Universal {background-color: #fff345;}
+td.FIXME {background-color: #ff0000;}
 </style>
 </head>
 <body>
@@ -28,15 +30,25 @@ td.common {border: medium ridge #ffffff;}
 <table id="table2">
   <tr>
     <th>Mount</th>
-    <th>Insignia Slots</th>
+    <th>Slot 1</th>
+    <th>Slot 2</th>
+    <th id="slot3">Slot 3</th>
     <th>Possible Bonuses</th>
   </tr>
 </table>
 
 <script>
-var insigniaTypes = {A: "Crescent", B: "Regal", C: "Barbed", D: "Illuminated", E: "Enlightened", U: "Universal"};
+var insignia = {
+    A: "Crescent",
+    B: "Regal",
+    C: "Barbed",
+    D: "Illuminated",
+    E: "Enlightened",
+    U: "Universal",
+    "?": "FIXME"
+};
 
-var insigniaBonuses = [
+var bonuses = [
     {itemName: "bonuses", slots: "", description: ""},
     {itemName: "mounts", slots: "", description: ""},
     {itemName: "Vampire's Craving", slots: "AAB", description: "Whenever you perform a Lifesteal, you are healed for 3% of your maximum Hit Points over 4 seconds."},
@@ -75,7 +87,7 @@ var mounts = [
     {itemName: "Champion's Armored Bulette", slots: "AUU", quality: "legendary"},
     {itemName: "Coastal Flail Snail", slots: "CUU", quality: "legendary"},
     {itemName: "Emperor Beetle", slots: "BUU", quality: "legendary"},
-    {itemName: "Greater Veserab", slots: "FIXME", quality: "legendary"},
+    {itemName: "Greater Veserab", slots: "?UU", quality: "legendary"},
     {itemName: "Howler Alpha", slots: "AUU", quality: "legendary"},
     {itemName: "Imperial Rage Drake", slots: "BUU", quality: "legendary"},
     {itemName: "Skeleton Steed", slots: "DUU", quality: "legendary"},
@@ -84,7 +96,7 @@ var mounts = [
     {itemName: "Apparatus of Kwalish", slots: "EEU", quality: "epic"},
     {itemName: "Armored Bear", slots: "ABU", quality: "epic"},
     {itemName: "Axe Beak (Legacy)", slots: "CDU", quality: "epic"},
-    {itemName: "Black Owlbear", slots: "FIXME", quality: "epic"},
+    {itemName: "Black Owlbear", slots: "??U", quality: "epic"},
     {itemName: "Bulette", slots: "ABU", quality: "epic"},
     {itemName: "Dawn Unicorn", slots: "BDU", quality: "epic"},
     {itemName: "Dusk Unicorn", slots: "AEU", quality: "epic"},
@@ -103,19 +115,19 @@ var mounts = [
     {itemName: "Heavy Mystic Nightmare", slots: "DEU", quality: "epic"},
     {itemName: "Heavy Twilight Nightmare", slots: "AAU", quality: "epic"},
     {itemName: "Heavy Worg", slots: "CEU", quality: "epic"},
-    {itemName: "High Forest Bear", slots: "FIXME", quality: "epic"},
+    {itemName: "High Forest Bear", slots: "??U", quality: "epic"},
     {itemName: "Leopard of Chult", slots: "CDU", quality: "epic"},
     {itemName: "Lord's Armored Polar Bear", slots: "BDU", quality: "epic"},
     {itemName: "Medium Adventurer's Horse", slots: "ACU", quality: "epic"},
     {itemName: "Owlbear", slots: "AEU", quality: "epic"},
-    {itemName: "Purple Owlbear", slots: "FIXME", quality: "epic"},
+    {itemName: "Purple Owlbear", slots: "??U", quality: "epic"},
     {itemName: "Rage Drake", slots: "CDU", quality: "epic"},
     {itemName: "Silverback Bear", slots: "DEU", quality: "epic"},
     {itemName: "Stormraider Clydesdale", slots: "BEU", quality: "epic"},
     {itemName: "Striped Owlbear", slots: "DDU", quality: "epic"},
     {itemName: "Sylvan Stag", slots: "CEU", quality: "epic"},
-    {itemName: "Tiger-striped Owlbear", slots: "FIXME", quality: "epic"},
-    {itemName: "Veserab", slots: "FIXME", quality: "epic"},
+    {itemName: "Tiger-striped Owlbear", slots: "??U", quality: "epic"},
+    {itemName: "Veserab", slots: "??U", quality: "epic"},
     {itemName: "White Owlbear", slots: "EEU", quality: "epic"},
     {itemName: "White Tiger", slots: "BCU", quality: "epic"},
     {itemName: "Yeth Hound", slots: "ACU", quality: "epic"},
@@ -127,7 +139,7 @@ var mounts = [
     {itemName: "Golden Brindle Horse", slots: "BBE", quality: "rare"},
     {itemName: "Hell Hound", slots: "AAB", quality: "rare"},
     {itemName: "Medium Black Horse", slots: "BBC", quality: "rare"},
-    {itemName: "Medium Palomino Horse", slots: "FIXME", quality: "rare"},
+    {itemName: "Medium Palomino Horse", slots: "???", quality: "rare"},
     {itemName: "Medium Pharaoh Steed", slots: "AAC", quality: "rare"},
     {itemName: "Medium Snowswift Horse", slots: "ADD", quality: "rare"},
     {itemName: "Medium Tiger", slots: "CCE", quality: "rare"},
@@ -148,17 +160,17 @@ var mounts = [
     {itemName: "Black Horse", slots: "BU", quality: "uncommon"},
     {itemName: "Blue Ribbon Pig", slots: "BU", quality: "uncommon"},
     {itemName: "Calimshan Horse", slots: "CU", quality: "uncommon"},
-    {itemName: "Crag Cat", slots: "FIXME", quality: "uncommon"},
+    {itemName: "Crag Cat", slots: "?U", quality: "uncommon"},
     {itemName: "Dappled Riding Horse", slots: "DU", quality: "uncommon"},
     {itemName: "Demon Sled", slots: "AU", quality: "uncommon"},
-    {itemName: "Fey Wolf", slots: "FIXME", quality: "uncommon"},
+    {itemName: "Fey Wolf", slots: "?U", quality: "uncommon"},
     {itemName: "Inferno Nightmare", slots: "DU", quality: "uncommon"},
     {itemName: "Jubilee Parade Horse", slots: "BU", quality: "uncommon"},
-    {itemName: "Pale Horse", slots: "FIXME", quality: "uncommon"},
+    {itemName: "Pale Horse", slots: "?U", quality: "uncommon"},
     {itemName: "Pharaoh Steed", slots: "CU", quality: "uncommon"},
     {itemName: "Shadow Wolf", slots: "AU", quality: "uncommon"},
     {itemName: "Starry Panther", slots: "AU", quality: "uncommon"},
-    {itemName: "Stormraider Horse", slots: "FIXME", quality: "uncommon"},
+    {itemName: "Stormraider Horse", slots: "?U", quality: "uncommon"},
     {itemName: "Sunite Steed", slots: "EU", quality: "uncommon"},
     {itemName: "Tethyr Horse", slots: "EU", quality: "uncommon"},
     {itemName: "White Horse", slots: "DU", quality: "uncommon"},
@@ -171,44 +183,50 @@ var mounts = [
     {itemName: "Waterdeep Horse", slots: "DE", quality: "common"}
 ];
 
-function slotLetterstoNames(slots, separator) {
+function slotLetterstoNames(slots) {
     "use strict";
-    if (slots === "FIXME") {
-        return slots;
-    }
     var i;
     var string = slots.split("");
     for (i = 0; i < slots.length; i += 1) {
-        string[i] = insigniaTypes[string[i]];
+        string[i] = insignia[string[i]];
     }
-    return string.join(separator);
+    return string.join(" + ");
 }
 
-function insigniaMountMatch(insignia, mount) {
+function bonusMountMatch(bSlots, mSlots) {
     "use strict";
-    if (insignia === "") {
+    if (bSlots === "") {
         return true;
     }
-    if (insignia.length !== mount.length) {
+    if (bSlots.length !== mSlots.length) {
         return false;
     }
     var i;
-    for (i = 0; i < insignia.length; i += 1) {
-        mount = mount.replace(insignia[i], "");
+    for (i = 0; i < bSlots.length; i += 1) {
+        mSlots = mSlots.replace(bSlots[i], "");
     }
-    return mount === "" || mount === "U" || mount === "UU";
+    return mSlots === "" || mSlots === "U" || mSlots === "UU";
 }
 
-function possibleBonuses(mount, selected) {
+function makeLink(text, href, title) {
+    "use strict";
+    var link = '<a href="?' + href;
+    if (title) {
+        link += '" title="' + title;
+    }
+    return link + '">' + text + "</a>";
+}
+
+function possibleBonuses(mSlots, selected) {
     "use strict";
     var array = [];
     var i;
-    for (i = 2; i < insigniaBonuses.length; i += 1) {
-        if (insigniaMountMatch(insigniaBonuses[i].slots, mount)) {
+    for (i = 2; i < bonuses.length; i += 1) {
+        if (bonusMountMatch(bonuses[i].slots, mSlots)) {
             if (i === selected) {
-                array.push(insigniaBonuses[i].itemName);
+                array.push(bonuses[i].itemName);
             } else {
-                array.push('<a href="?' + i + '" title="' + insigniaBonuses[i].description + '">' + insigniaBonuses[i].itemName + "</a>");
+                array.push(makeLink(bonuses[i].itemName, i, bonuses[i].description));
             }
         }
     }
@@ -218,9 +236,9 @@ function possibleBonuses(mount, selected) {
 function update() {
     "use strict";
     var selected = document.getElementById("select").selectedIndex;
-    var slots = insigniaBonuses[selected].slots;
-    document.getElementById("slots").textContent = slotLetterstoNames(slots, " + ");
-    document.getElementById("description").textContent = insigniaBonuses[selected].description;
+    var bSlots = bonuses[selected].slots;
+    document.getElementById("slots").textContent = slotLetterstoNames(bSlots);
+    document.getElementById("description").textContent = bonuses[selected].description;
     if (selected === 0) {
         document.getElementById("table1").removeAttribute("style");
         document.getElementById("table2").style.display = "none";
@@ -231,20 +249,37 @@ function update() {
         while (table.rows.length > 1) {
             table.deleteRow(1);
         }
+        if (bSlots.length === 2) {
+            document.getElementById("slot3").style.display = "none";
+        } else {
+            document.getElementById("slot3").removeAttribute("style");
+        }
         var i;
+        var mSlots;
         var row;
         var cell;
         for (i = 0; i < mounts.length; i += 1) {
-            if (insigniaMountMatch(slots, mounts[i].slots)) {
+            mSlots = mounts[i].slots;
+            if (bonusMountMatch(bSlots, mSlots)) {
                 row = table.insertRow(table.rows.length);
                 cell = row.insertCell(0);
                 cell.textContent = mounts[i].itemName;
                 cell.className = "nowrap " + mounts[i].quality;
                 cell = row.insertCell(1);
-                cell.textContent = slotLetterstoNames(mounts[i].slots, ", ");
-                cell.className = "nowrap";
+                cell.textContent = insignia[mSlots[0]];
+                cell.className = cell.textContent;
                 cell = row.insertCell(2);
-                cell.innerHTML = possibleBonuses(mounts[i].slots, selected);
+                cell.textContent = insignia[mSlots[1]];
+                cell.className = cell.textContent;
+                cell = row.insertCell(3);
+                cell.innerHTML = possibleBonuses(mSlots, selected);
+                if (bSlots.length !== 2) {
+                    cell = row.insertCell(3);
+                    if (mSlots.length === 3) {
+                        cell.textContent = insignia[mSlots[2]];
+                        cell.className = cell.textContent;
+                    }
+                }
             }
         }
     }
@@ -257,27 +292,27 @@ function initialize() {
     var table = document.getElementById("table1");
     var row;
     var cell;
-    for (i = 2; i < insigniaBonuses.length; i += 1) {
+    for (i = 2; i < bonuses.length; i += 1) {
         row = table.insertRow(table.rows.length);
         cell = row.insertCell(0);
-        cell.innerHTML = '<a href="?' + i + '">' + insigniaBonuses[i].itemName + "</a>";
+        cell.innerHTML = makeLink(bonuses[i].itemName, i);
         cell.className = "nowrap";
         cell = row.insertCell(1);
-        cell.textContent = slotLetterstoNames(insigniaBonuses[i].slots, " + ");
+        cell.textContent = slotLetterstoNames(bonuses[i].slots);
         cell.className = "nowrap";
         cell = row.insertCell(2);
-        cell.textContent = insigniaBonuses[i].description;
+        cell.textContent = bonuses[i].description;
     }
     var option;
     var select = document.getElementById("select");
-    for (i = 0; i < insigniaBonuses.length; i += 1) {
+    for (i = 0; i < bonuses.length; i += 1) {
         option = document.createElement("option");
-        option.text = insigniaBonuses[i].itemName;
+        option.text = bonuses[i].itemName;
         option.value = i;
         select.add(option);
     }
     var query = parseInt(location.search.slice(1));
-    if (query >= 0 && query < insigniaBonuses.length) {
+    if (query >= 0 && query < bonuses.length) {
         select.selectedIndex = query;
     } else {
         select.selectedIndex = 0;
