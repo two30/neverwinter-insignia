@@ -170,7 +170,7 @@ var mounts = [
     {itemName: "Pharaoh Steed", slots: "CU", quality: "uncommon"},
     {itemName: "Shadow Wolf", slots: "AU", quality: "uncommon"},
     {itemName: "Starry Panther", slots: "AU", quality: "uncommon"},
-    {itemName: "Stormraider Horse", slots: "?U", quality: "uncommon"},
+    {itemName: "Stormraider Horse", slots: "DU", quality: "uncommon"},
     {itemName: "Sunite Steed", slots: "EU", quality: "uncommon"},
     {itemName: "Tethyr Horse", slots: "EU", quality: "uncommon"},
     {itemName: "White Horse", slots: "DU", quality: "uncommon"},
@@ -210,11 +210,12 @@ function bonusMountMatch(bSlots, mSlots) {
     if (bSlots.length !== mSlots.length) {
         return false;
     }
+    var diff = mSlots;
     var i;
     for (i = 0; i < bSlots.length; i += 1) {
-        mSlots = mSlots.replace(bSlots[i], "");
+        diff = diff.replace(bSlots[i], "");
     }
-    return mSlots === "" || mSlots === "U" || mSlots === "UU";
+    return diff === "" || diff === "U" || diff === "UU";
 }
 
 function makeLink(text, href, title) {
@@ -246,7 +247,7 @@ function update() {
     "use strict";
     var selected = document.getElementById("select").selectedIndex;
     var bSlots = bonuses[selected].slots;
-    document.getElementById("slots").textContent = wordySlots(bSlots);
+    document.getElementById("slots").textContent = bonuses[selected].wordySlots;
     document.getElementById("description").textContent = bonuses[selected].description;
     if (selected === 0) {
         document.getElementById("table1").removeAttribute("style");
@@ -256,7 +257,7 @@ function update() {
         var table = document.getElementById("table2");
         table.removeAttribute("style");
         while (table.rows.length > 1) {
-            table.deleteRow(1);
+            table.deleteRow(-1);
         }
         if (bSlots.length === 2) {
             document.getElementById("slot3").style.display = "none";
@@ -307,7 +308,8 @@ function initialize() {
         cell.innerHTML = makeLink(bonuses[i].itemName, i);
         cell.className = "nowrap";
         cell = row.insertCell(1);
-        cell.textContent = wordySlots(bonuses[i].slots);
+        bonuses[i].wordySlots = wordySlots(bonuses[i].slots);
+        cell.textContent = bonuses[i].wordySlots;
         cell.className = "nowrap";
         cell = row.insertCell(2);
         cell.textContent = bonuses[i].description;
