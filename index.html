@@ -13,6 +13,8 @@ td.uncommon {border: medium ridge #84dc26;}
 td.common {border: medium ridge #ffffff;}
 td.Universal {background-color: #fff345;}
 td.FIXME {background-color: #ff0000;}
+a {text-decoration: none;}
+a:hover {text-decoration: underline;}
 </style>
 </head>
 <body>
@@ -225,7 +227,7 @@ function bonusMountMatch(bSlots, mSlots) {
 
 function makeLink(text, href, title) {
     "use strict";
-    var link = '<a href="?' + href;
+    var link = '<a href="' + href;
     if (title) {
         link += '" title="' + title;
     }
@@ -241,7 +243,7 @@ function possibleBonuses(mSlots, selected) {
             if (i === selected) {
                 array.push(bonuses[i].itemName);
             } else {
-                array.push(makeLink(bonuses[i].itemName, i, bonuses[i].description));
+                array.push(makeLink(bonuses[i].itemName, "?" + i, bonuses[i].description));
             }
         }
     }
@@ -278,7 +280,7 @@ function update() {
             if (bonusMountMatch(bSlots, mSlots)) {
                 row = table.insertRow(table.rows.length);
                 cell = row.insertCell(0);
-                cell.textContent = mounts[i].itemName;
+                cell.innerHTML = makeLink(mounts[i].itemName, "http://neverwinter.gamepedia.com/" + mounts[i].itemName.replace(/\ /g, "_"));
                 cell.className = "nowrap " + mounts[i].quality;
                 cell = row.insertCell(1);
                 cell.textContent = insignia[mSlots[0]];
@@ -310,7 +312,7 @@ function initialize() {
     for (i = 2; i < bonuses.length; i += 1) {
         row = table.insertRow(table.rows.length);
         cell = row.insertCell(0);
-        cell.innerHTML = makeLink(bonuses[i].itemName, i);
+        cell.innerHTML = makeLink(bonuses[i].itemName, "?" + i);
         cell.className = "nowrap";
         cell = row.insertCell(1);
         bonuses[i].wordySlots = wordySlots(bonuses[i].slots);
