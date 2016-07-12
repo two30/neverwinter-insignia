@@ -75,7 +75,7 @@ var bonuses = [
     {itemName: "Vampire's Thirst", slots: "AB", description: "Whenever you perform a Lifesteal, you are healed for 1.2% of your maximum Hit Points over 4 seconds."},
     {itemName: "Survivor's Gift", slots: "AC", description: "Whenever you Deflect an attack, you are healed for 1.2% of your maximum Hit Points over 4 seconds."},
     {itemName: "Oppressor's Respite", slots: "AD", description: "Whenever you are Stunned, Knocked, or Immobilized, you are healed for 1% of your maximum Hit Points over 4 seconds."},
-    {itemName: "Barbarian's Delight", slots: "AE", description: "Whenever you perform a Critical Strike, you are healed for 0.5% of your maximum Hit Points."},
+    {itemName: "Barbarian's Delight", slots: "AE", description: "Whenever you perform a Critical Strike, you are healed for 0.5% of your maximum Hit Points. This effect can only occur once every 2 seconds."},
     {itemName: "Protector's Friendship", slots: "BC", description: "Whenever your summoned Companion attacks, you gain 1% of your Power and Defense for 10 seconds. This effect can stack up to 4 times."},
     {itemName: "Warlord's Encouragement", slots: "BE", description: "Your summoned Companion does 10% more damage."},
     {itemName: "Alchemist's Refresher", slots: "BD", description: "Whenever you drink a Healing Potion, you are granted 2% more Power and Defense for 10 seconds."},
@@ -246,11 +246,11 @@ function bonusMountMatch(bSlots, mSlots) {
 
 function makeLink(text, href, title) {
     "use strict";
-    var link = '<a href="' + href;
+    var link = "<a href=\"" + href;
     if (title) {
-        link += '" title="' + title;
+        link += "\" title=\"" + title;
     }
-    return link + '">' + text + "</a>";
+    return link + "\">" + text + "</a>";
 }
 
 function possibleBonuses(mSlots, selected) {
