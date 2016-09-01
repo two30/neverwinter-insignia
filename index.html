@@ -187,6 +187,7 @@ var mounts = [
 //    {itemName: "Crag Cat", slots: "CU", quality: "uncommon"},
     {itemName: "Dappled Riding Horse", slots: "DU", quality: "uncommon"},
     {itemName: "Demon Sled", slots: "AU", quality: "uncommon"},
+    {itemName: "Electric Tiger", slots: "BD", quality: "uncommon"},
     {itemName: "Fey Wolf", slots: "AU", quality: "uncommon"},
     {itemName: "Grey Horse", slots: "BU", quality: "uncommon"},
     {itemName: "Inferno Nightmare", slots: "DU", quality: "uncommon"},
@@ -207,7 +208,6 @@ var mounts = [
     {itemName: "Appaloosa Horse", slots: "AD", quality: "common"},
     {itemName: "Boar", slots: "BD", quality: "common"},
     {itemName: "Brindle Horse", slots: "AC", quality: "common"},
-    {itemName: "Electric Tiger", slots: "BD", quality: "common"},
     {itemName: "Palomino Horse", slots: "BC", quality: "common"},
     {itemName: "Sabino Horse", slots: "BE", quality: "common"},
     {itemName: "Waterdeep Horse", slots: "DE", quality: "common"}
@@ -296,7 +296,7 @@ function update() {
                 row = table.insertRow(table.rows.length);
                 cell = row.insertCell(0);
                 link = document.createElement("a");
-                link.setAttribute("href", "http://neverwinter.gamepedia.com/" + mounts[i].itemName.replace(/\ /g, "_"));
+                link.setAttribute("href", "http://neverwinter.gamepedia.com/" + mounts[i].itemName.replace(/\s/g, "_"));
                 link.textContent = mounts[i].itemName;
                 cell.appendChild(link);
                 cell.className = "nowrap " + mounts[i].quality;
@@ -318,7 +318,11 @@ function update() {
             }
         }
     }
-    history.replaceState(null, null, "?" + selected);
+    if (selected === 0) {
+        history.replaceState(null, null, location.protocol + "//" + location.host + location.pathname);
+    } else {
+        history.replaceState(null, null, "?" + selected);
+    }
 }
 
 function initialize() {
