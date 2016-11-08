@@ -217,9 +217,10 @@ var mounts = [
 
 function wordySlots(slots) {
     "use strict";
-    var i;
+    var i = slots.length;
     var count = {};
-    for (i = 0; i < slots.length; i += 1) {
+    while (i > 0) {
+        i -= 1;
         if (count[slots[i]]) {
             count[slots[i]] += 1;
         } else {
@@ -228,7 +229,9 @@ function wordySlots(slots) {
     }
     var keys = Object.keys(count);
     var array = [];
-    for (i = 0; i < keys.length; i += 1) {
+    i = keys.length;
+    while (i > 0) {
+        i -= 1;
         array.push(count[keys[i]] + " " + insignia[keys[i]]);
     }
     return array.join(", ");
@@ -243,8 +246,9 @@ function bonusMountMatch(bSlots, mSlots) {
         return false;
     }
     var diff = mSlots;
-    var i;
-    for (i = 0; i < bSlots.length; i += 1) {
+    var i = bSlots.length;
+    while (i > 0) {
+        i -= 1;
         diff = diff.replace(bSlots[i], "");
     }
     return diff === "" || diff === "U" || diff === "UU";
@@ -253,8 +257,8 @@ function bonusMountMatch(bSlots, mSlots) {
 function possibleBonuses(mSlots, selected) {
     "use strict";
     var array = [];
-    var i;
-    for (i = 2; i < bonuses.length; i += 1) {
+    var i = 2;
+    while (i < bonuses.length) {
         if (bonusMountMatch(bonuses[i].slots, mSlots)) {
             if (i === selected) {
                 array.push(bonuses[i].itemName);
@@ -262,6 +266,7 @@ function possibleBonuses(mSlots, selected) {
                 array.push("<a href=\"?" + i + "\" title=\"" + bonuses[i].description + "\">" + bonuses[i].itemName + "</a>");
             }
         }
+        i += 1;
     }
     return array.join(", ");
 }
@@ -287,12 +292,12 @@ function update() {
         } else {
             document.getElementById("slot3").removeAttribute("style");
         }
-        var i;
+        var i = 0;
         var mSlots;
         var row;
         var cell;
         var link;
-        for (i = 0; i < mounts.length; i += 1) {
+        while (i < mounts.length) {
             mSlots = mounts[i].slots;
             if (bonusMountMatch(bSlots, mSlots)) {
                 row = table.insertRow(table.rows.length);
@@ -318,6 +323,7 @@ function update() {
                     }
                 }
             }
+            i += 1;
         }
     }
     if (selected === 0) {
@@ -329,12 +335,12 @@ function update() {
 
 function initialize() {
     "use strict";
-    var i;
+    var i = 2;
     var table = document.getElementById("table1");
     var row;
     var cell;
     var link;
-    for (i = 2; i < bonuses.length; i += 1) {
+    while (i < bonuses.length) {
         row = table.insertRow(table.rows.length);
         cell = row.insertCell(0);
         link = document.createElement("a");
@@ -348,14 +354,17 @@ function initialize() {
         cell.className = "nowrap";
         cell = row.insertCell(2);
         cell.textContent = bonuses[i].description;
+        i += 1;
     }
     var option;
     var select = document.getElementById("select");
-    for (i = 0; i < bonuses.length; i += 1) {
+    i = 0;
+    while (i < bonuses.length) {
         option = document.createElement("option");
         option.text = bonuses[i].itemName;
         option.value = i;
         select.add(option);
+        i += 1;
     }
     var query = parseInt(location.search.slice(1));
     if (query >= 0 && query < bonuses.length) {
