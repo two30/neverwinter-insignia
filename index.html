@@ -3,39 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Neverwinter Mount Insignia Bonuses</title>
-<style>
-td {border: thin dotted black;}
-td.nowrap {white-space: nowrap;}
-td.legendary {border: medium ridge #f27900;}
-td.epic {border: medium ridge #7a38ff;}
-td.rare {border: medium ridge #3391e9;}
-td.uncommon {border: medium ridge #84dc26;}
-td.common {border: medium ridge #ffffff;}
-td.Universal {background-color: #fff345;}
-td.FIXME {background-color: #ff0000;}
-a {text-decoration: none;}
-a:hover {text-decoration: underline;}
-</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <select id="select" onchange="update()"></select>
 <span id="slots"></span>
 <div id="description"></div>
 <br>
-<table id="table1">
+<table id="table1" class="table">
   <tr>
-    <th>Bonus</th>
-    <th>Insignia Required</th>
-    <th>Description</th>
+    <th scope="col">Bonus</th>
+    <th scope="col">Insignia Required</th>
+    <th scope="col">Description</th>
   </tr>
 </table>
-<table id="table2">
+<table id="table2" class="table">
   <tr>
-    <th>Mount</th>
-    <th>Slot 1</th>
-    <th>Slot 2</th>
-    <th id="slot3">Slot 3</th>
-    <th>Possible Bonuses</th>
+    <th scope="col">Mount</th>
+    <th scope="col">Slot 1</th>
+    <th scope="col">Slot 2</th>
+    <th id="slot3" scope="col">Slot 3</th>
+    <th scope="col">Possible Bonuses</th>
   </tr>
 </table>
 
